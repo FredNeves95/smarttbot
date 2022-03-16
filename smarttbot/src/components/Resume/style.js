@@ -4,9 +4,8 @@ export const Container = styled.div`
     background-color: #FFFFFF;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.097543);
     border-radius: 4px;
-    min-height: 252px;
     padding: 16px 25.71px;
-    margin: 0 0 16px 0;
+    margin: 0 24px 16px 20px;
 
     #title{
         margin: 0 0 24px 0;
@@ -63,6 +62,10 @@ export const Container = styled.div`
         color: #888689; 
     }
 
+    #text-align-right{
+        text-align: right;
+    }
+
     #horizontal-line{
         margin: 16px 0;
 
@@ -78,7 +81,7 @@ export const Container = styled.div`
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 8px;
 
         @media(max-width: 940px){
         flex-wrap: nowrap;
@@ -91,7 +94,7 @@ export const Summary = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 40%;
+    width: 44%;
 
     @media(max-width: 940px){
         width: 100%;
@@ -104,7 +107,7 @@ export const Summary = styled.div`
         font-size: 12px;
         line-height: 20px;
         color: #FFFFFF;
-        padding: 3px 6px;
+        padding: 3px 6px 1px;
     }
 
     hr{

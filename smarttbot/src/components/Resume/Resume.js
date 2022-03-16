@@ -57,8 +57,9 @@ const Resume = () => {
                             <Skeleton height={20} width={120} />
                     }
                 </div>
+
                 <div className='general-values'>
-                    <p className='subtitle'>Total de Transações Realizadas</p>
+                    <p className='subtitle' id='text-align-right'>Total de Transações Realizadas</p>
                     <p id='transactions-value'>
                         {
                             summary ?
@@ -72,6 +73,7 @@ const Resume = () => {
             <div id='horizontal-line'><hr /></div>
 
             <p className='subtitle'>Papéis negociados</p>
+
             <div id='summary-container'>
                 {
                     summary ?
@@ -89,11 +91,7 @@ const Resume = () => {
                             <>
                                 <Skeleton height={100} />
                             </>
-
-
                         )
-
-
                 }
             </div>
 

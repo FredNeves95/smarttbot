@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
     border-radius: 8px;
     height: 65px;
     padding: 0 25px;
-    margin: 0 0 24px 0;
+    margin: 24px 24px 24px 20px;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
