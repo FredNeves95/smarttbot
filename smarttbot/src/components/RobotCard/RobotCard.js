@@ -1,8 +1,12 @@
 import React from 'react'
 
-const RobotCard = () => {
+const RobotCard = (props) => {
+
     return (
-        <div>RobotCard</div>
+        <div>
+            {props.robot.title}
+            {props.robot.id}
+        </div>
     )
 }
 
