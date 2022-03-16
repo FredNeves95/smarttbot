@@ -1,14 +1,19 @@
 import React from 'react'
 import { Container } from './style'
 import addIcon from '../../images/addicon.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setShow } from '../../redux/reducers/modalReducer'
 
 const AddRobot = () => {
     const dispatch = useDispatch()
+    const availableRobots = useSelector((state) => state.availableRobots.available)
 
     const openModal = () => {
-        dispatch(setShow(true))
+        if (availableRobots <= 0) {
+            alert('Oops! Você já atingiu o limite de robôs disponíveis.')
+        } else {
+            dispatch(setShow(true))
+        }
     }
 
     return (
@@ -18,7 +23,12 @@ const AddRobot = () => {
             </div>
             <div>
                 <p id='title'>Adicionar novo Robô</p>
-                <p id='subtitle'>Você possui <span>02 Robôs</span> disponíveis</p>
+                <p id='subtitle'>Você possui
+                    <span>{availableRobots > 1 ?
+                        ` 0${availableRobots} Robôs` :
+                        ` 0${availableRobots} Robô`
+                    } </span>
+                    disponíveis</p>
             </div>
         </Container>
     )

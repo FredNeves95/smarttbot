@@ -1,17 +1,25 @@
 import React, { useState } from 'react'
 import { Container } from './style'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setShow } from '../../redux/reducers/modalReducer'
+import { setAvailable } from '../../redux/reducers/availableRobots'
 import x from '../../images/x.svg'
 
 const Modal = () => {
     const dispatch = useDispatch()
+    const availableRobots = useSelector((state) => state.availableRobots.available)
+
     const [tangram, setTangram] = useState(false)
     const [priceAction, setPriceAction] = useState(false)
 
 
     const closeModal = () => {
         dispatch(setShow(false))
+    }
+
+    const submitForm = () => {
+        dispatch(setAvailable(availableRobots - 1))
+        closeModal()
     }
 
     const selectTangram = () => {
@@ -46,7 +54,7 @@ const Modal = () => {
 
                 <div className='form'>
                     <p>Capital inicial do robô</p>
-                    <input placeholder='R$' />
+                    <input placeholder='R$' type='number' />
                 </div>
 
                 <p id='strategy-text'>Selecione uma das estratégias abaixo</p>
@@ -79,7 +87,7 @@ const Modal = () => {
                         <p>Cancelar</p>
                     </div>
 
-                    <div id='submit'>
+                    <div id='submit' onClick={submitForm}>
                         <p>Criar robô</p>
                     </div>
                 </div>
