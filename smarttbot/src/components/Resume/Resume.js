@@ -89,7 +89,7 @@ const Resume = () => {
                         :
                         (
                             <>
-                                <Skeleton height={100} />
+                                <Skeleton height={100} sx={{ width: '100%' }} />
                             </>
                         )
 

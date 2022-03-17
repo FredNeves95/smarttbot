@@ -9,7 +9,7 @@ export const Container = styled.div`
     width: 100%;
     margin: 0 0 24px 0;
 
-    @media(max-width: 1100px){
+    @media(max-width: 740px){
         justify-content: center;
     }
 `

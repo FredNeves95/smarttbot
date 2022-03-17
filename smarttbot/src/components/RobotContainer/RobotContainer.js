@@ -49,11 +49,12 @@ const RobotContainer = () => {
                         robots.map((item) => {
                             return <RobotCard robot={item} key={item.id} />
                         }) :
-                        <Skeleton />
+                        <Skeleton height={230} sx={{ width: '100%' }} />
                 }
 
             </Container>
-            <Pagination count={pages} page={page} onChange={handleChange} />
+
+            <Pagination shape="rounded" count={pages} page={page} onChange={handleChange} />
         </>
     )
 }
