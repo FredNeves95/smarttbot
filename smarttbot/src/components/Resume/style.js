@@ -5,8 +5,9 @@ export const Container = styled.div`
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.097543);
     border-radius: 4px;
     padding: 16px 25.71px;
-    margin: 0 24px 16px 20px;
-
+    margin: 0 0 16px 0;
+    width: 100%;
+    
     #title{
         margin: 0 0 24px 0;
         font-style: normal;
@@ -77,9 +78,11 @@ export const Container = styled.div`
 
     #summary-container{
         width: 100%;
-        /* height: 102px; */
+        height: 102px;
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
         gap: 8px;
 
         @media(max-width: 940px){
@@ -109,7 +112,7 @@ export const Summary = styled.div`
     }
 
     hr{
-        width: 60%;
+        width: 70%;
         border: none;
         border-top: 1px dashed #C5C5C5;
     }

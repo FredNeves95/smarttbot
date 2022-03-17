@@ -5,8 +5,9 @@ export const HeaderContainer = styled.div`
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.097543);
     border-radius: 8px;
     height: 65px;
+    width: 100%;
     padding: 0 25px;
-    margin: 24px 24px 24px 20px;
+    margin: 0 0 24px 0;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;

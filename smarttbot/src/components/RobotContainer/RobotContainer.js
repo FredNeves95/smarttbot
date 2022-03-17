@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 import RobotCard from '../RobotCard/RobotCard'
 import { Pagination } from '@mui/material'
+import { Container } from './style'
 
 const RobotContainer = () => {
     const [robots, setRobots] = useState()
@@ -42,13 +43,16 @@ const RobotContainer = () => {
 
     return (
         <>
-            {
-                robots ?
-                    robots.map((item) => {
-                        return <RobotCard robot={item} key={item.id} />
-                    }) :
-                    <Skeleton />
-            }
+            <Container>
+                {
+                    robots ?
+                        robots.map((item) => {
+                            return <RobotCard robot={item} key={item.id} />
+                        }) :
+                        <Skeleton />
+                }
+
+            </Container>
             <Pagination count={pages} page={page} onChange={handleChange} />
         </>
     )
