@@ -92,10 +92,11 @@ const Resume = () => {
                                 <Skeleton height={100} />
                             </>
                         )
+
                 }
             </div>
 
-        </Container>
+        </Container >
     )
 }
 

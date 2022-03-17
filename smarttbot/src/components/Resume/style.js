@@ -77,14 +77,12 @@ export const Container = styled.div`
 
     #summary-container{
         width: 100%;
-        height: 102px;
+        /* height: 102px; */
         display: flex;
-        flex-direction: column;
         flex-wrap: wrap;
         gap: 8px;
 
         @media(max-width: 940px){
-        flex-wrap: nowrap;
         height: auto;
     }
     }

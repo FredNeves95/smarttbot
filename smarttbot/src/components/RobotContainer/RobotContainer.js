@@ -7,6 +7,7 @@ import { Pagination } from '@mui/material'
 const RobotContainer = () => {
     const [robots, setRobots] = useState()
     const [page, setPage] = useState(1)
+    const [pages, setPages] = useState(0)
 
     useEffect(() => {
         api
@@ -18,6 +19,17 @@ const RobotContainer = () => {
             })
             .then((res) => {
                 setRobots(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            })
+    }, [page])
+
+    useEffect(() => {
+        api
+            .get('/robot')
+            .then((res) => {
+                setPages(Math.ceil(res.data.data.length / 8));
             })
             .catch((err) => {
                 console.log(err.message);
@@ -37,7 +49,7 @@ const RobotContainer = () => {
                     }) :
                     <Skeleton />
             }
-            <Pagination count={27} page={page} onChange={handleChange} />
+            <Pagination count={pages} page={page} onChange={handleChange} />
         </>
     )
 }
