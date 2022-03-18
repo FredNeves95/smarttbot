@@ -50,7 +50,7 @@ summary.papers.map((item, index) => {
 
 ### Adicionar novo robô
 
-```
+```javascript
     const availableRobots = useSelector((state) => state.availableRobots.available)
 
     const openModal = () => {
@@ -65,3 +65,60 @@ summary.papers.map((item, index) => {
 * Caso availableRobots for menor ou igual a zero, o modal não será aberto e aparecerá um alert na tela.
 * Caso availableRobots for maior que zero, setShow receberá o booleano true e, então, o modal de adicionar robô aparecerá  na tela.
 * A função openModal somente será executada com o clique.
+
+### Modal - Adicionar novo robô
+
+
+* Essa tela é exibida após openModal receber o valor true;
+* A função abaixo recebe os valores digitados nos inputs e atribui ao valor correspondente no objeto body.
+
+```javascript
+   const handleChangeBody = (event) => {
+        setBody({ ...body, [event.target.name]: event.target.value })
+    }
+```
+
+* As funções abaixo alteram o parametro id do objeto body ao clicar em cada caixa, além de realizar a mudança de cores. Apesar de existirem outras estratégias, foram utilizadas somente essas duas, para manter a proposta de design.
+
+```javascript
+   const selectRaptor = () => {
+        setRaptor(true)
+        setTangram(false)
+        setBody({ ...body, strategy_id: 1 })
+    }
+
+    const selectTangram = () => {
+        setTangram(true)
+        setRaptor(false)
+        setBody({ ...body, strategy_id: 2 })
+    }
+```
+
+* A função abaixo verifica se todas as informações foram preenchidas corretamente. Se não, exibirá um alert na tela do usuário. Se sim, enviará os dados do novo robô para a api através do endpoint api.post('/robot', body), notifica o usuário sobre o sucesso da criação do robô e executa a função closeModal().
+
+```javascript
+  const submitForm = () => {
+        if (body.title === '' || body.initial_capital === '' || body.strategy_id === '') {
+            alert('Preencha todas as informações necessárias.')
+        } else if (body.initial_capital < 0) {
+            alert('Digite um capital inicial do robô válido.')
+        } else {
+            api.post('/robot', body)
+                .then((res) => {
+                    alert('Robô adicionado com sucesso!')
+                    dispatch(setAvailable(availableRobots - 1))
+                    closeModal()
+                })
+                .catch((err) => {
+                    alert('Oops! Ocorreu algum erro.')
+                })
+        }
+
+    }
+```
+* A função closeModal() é responsável por fazer a alteração do setShow novamente para false, deixando de exibir o modal na tela. Ela será executada quando o usuário clicar em X, em cancelar ou ao criar com sucesso um robô.
+```javascript
+const closeModal = () => {
+        dispatch(setShow(false))
+    }
+```
