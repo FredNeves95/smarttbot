@@ -19,6 +19,8 @@ $ npm start
 ## Página principal
 
 ### Resumo geral de operações
+![resumo](https://user-images.githubusercontent.com/88235577/159070125-f12ec2b1-9181-4d6c-bf85-3ec878d0b861.png)
+
 
 #### Resumo de movimentação
 ```javascript
@@ -49,6 +51,7 @@ summary.papers.map((item, index) => {
 * A função map recebe cada item do array papers e retorna um jsx com o nome e a quantidade de transações feitas naquele papel.
 
 ### Adicionar novo robô
+![add](https://user-images.githubusercontent.com/88235577/159070202-97f9f29a-b6b5-4f5c-9069-ebf25598b9a9.png)
 
 ```javascript
     const availableRobots = useSelector((state) => state.availableRobots.available)
@@ -69,6 +72,7 @@ summary.papers.map((item, index) => {
 
 ### Modal - Adicionar novo robô
 
+![modal](https://user-images.githubusercontent.com/88235577/159070255-ea773e59-6900-407a-9dc5-6a2a95ce8a1d.png)
 
 * Essa tela é exibida após openModal receber o valor true;
 * A função abaixo recebe os valores digitados nos inputs e atribui ao valor correspondente no objeto body.
@@ -125,6 +129,7 @@ const closeModal = () => {
 ```
 
 ### Container de exibição dos cards dos robôs
+![container](https://user-images.githubusercontent.com/88235577/159070810-7cb32d4a-ce8a-489c-b984-77ad5705ccf0.png)
 
 ```javascript
  useEffect(() => {
@@ -181,10 +186,16 @@ robots.map((item) => {
 * robot={item} faz com que os dados daquele robô sejam enviados para o card do robô por props.
  
 ### Card do robô
+
+
 ```javascript
    const robot = props.robot
 ```
 * Recebe por props as propriedades do robô.
+
+![card](https://user-images.githubusercontent.com/88235577/159070304-206c2b87-091e-43b3-ab16-97b461f325f3.png)
+![cardna](https://user-images.githubusercontent.com/88235577/159070331-2e07be8c-7080-48a6-b3e2-1ee79b4652aa.png)
+* N/A é exibido caso robot não possua a propriedade last_paper
 
 ```javascript
 useEffect(() => {
