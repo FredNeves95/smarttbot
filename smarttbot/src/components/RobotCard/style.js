@@ -26,9 +26,13 @@ export const Container = styled.div`
         align-self: start;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: end;
+        // If the .action-box is not commented, justify-content must be space-between 
 
-        .action-box{
+        /* .action-box{
+            Commented because the function is blocked by CORS.
+
+
             margin: 0 4.29px 0 0; 
             padding: 2px 8px 2px 6px;
             background: #FFFFFF;
@@ -36,7 +40,7 @@ export const Container = styled.div`
             box-sizing: border-box;
             border-radius: 2px;
             cursor: pointer;
-        }
+        } */
 
         .status-box{
             display: flex;
