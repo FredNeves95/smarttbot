@@ -33,7 +33,7 @@ const sum = robots.map((item) => item.profit)
 
 #### Total de transações realizadas e papéis negociados
 * Dados obtidos no endpoint api.get('/robot/overview'), que retorna um objeto (summary). 
-* O valor total de transações realizadas recebe o parâmetro transactions do objeto acima.
+* O valor total de transações realizadas recebe o parâmetro transactions, que se encontra em summary.
 
 ```javascript
 summary.papers.map((item, index) => {
@@ -65,6 +65,7 @@ summary.papers.map((item, index) => {
 * Caso availableRobots for menor ou igual a zero, o modal não será aberto e aparecerá um alert na tela.
 * Caso availableRobots for maior que zero, setShow receberá o booleano true e, então, o modal de adicionar robô aparecerá  na tela.
 * A função openModal somente será executada com o clique.
+* Obs: A restrição foi aplicada somente como demonstração. Caso a página seja recarregada, o limite será reiniciado.
 
 ### Modal - Adicionar novo robô
 
@@ -122,3 +123,138 @@ const closeModal = () => {
         dispatch(setShow(false))
     }
 ```
+
+### Container de exibição dos cards dos robôs
+
+```javascript
+ useEffect(() => {
+        api
+            .get('/robot', {
+                headers: {
+                    limit: 8,
+                    page: page
+                }
+            })
+            .then((res) => {
+                setRobots(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            })
+    }, [page])
+```
+
+* Recebe os dados dos robôs pelo endpoint api.get('/robot'), com limite de 8 robôs por página.
+* O array de dependências dessa função faz com que ela seja executada novamente sempre que a página for alterada, exibindo outros robôs. 
+
+```javascript
+useEffect(() => {
+        api
+            .get('/robot')
+            .then((res) => {
+                setPages(Math.ceil(res.data.data.length / 8));
+            })
+            .catch((err) => {
+                console.log(err.message);
+            })
+    }, [robots])
+
+```
+
+* Recebe os dados de todos os robôs pelo endpoint api.get('/robot') e divide a quantidade de robôs por oito, para encontrar o número de páginas de maneira automatizada.
+* A função Math.ceil recebe o valor da divisão por oito e retorna o número inteiro imediatamente superior, que será o número de páginas disponíveis.
+* O array de dependências dessa função faz com que ela seja executada novamente sempre que novos robôs forem criados, exibindo a quantidade correta de páginas. 
+
+```javascript
+const handleChange = (event, value) => {
+        setPage(value);
+    };
+```
+* Recebe o valor da página selecionada e atribui esse valor à variável page, fazendo com que a página mude e os robôs correspondentes daquela página sejam exibidos na tela.
+
+```javascript
+robots.map((item) => {
+          return <RobotCard robot={item} key={item.id} />
+      })
+``` 
+* A função map recebe o array de objetos robots e retorna o card do robô.
+* robot={item} faz com que os dados daquele robô sejam enviados para o card do robô por props.
+ 
+### Card do robô
+```javascript
+   const robot = props.robot
+```
+* Recebe por props as propriedades do robô.
+
+```javascript
+useEffect(() => {
+        if (robot.running === 1) {
+            setStatus(true)
+        } else {
+            setStatus(false)
+        }
+
+        if (robot.simulation === 0) {
+            setSimulation("Pessimista")
+        } else {
+            setSimulation("Otimista")
+        }
+    }, [robot])
+
+```
+* Recebe os parâmetros running e simulation de robots.
+* Caso robot.running = 1, o card aparecerá com um circulo verde e o escrito "Em execução".
+* Caso robot.running = 0, o card aparecerá com um circulo vermelho e o escrito "Pausado".
+* Caso robot.simulation = 0, o card aparecerá com o escrito "Pessimista".
+* Por fim, caso robot.simulation = 1, o card aparecerá com o escrito "Otimista".
+
+```javascript
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const currentDate = year + '-' + month + '-' + day;
+    
+    const filterDayTrades = () => {
+        if (robot) {
+            robot.movimentations.filter((item) => {
+                if (item.date.includes(currentDate)) {
+                    let array = todayTransactions
+                    let newArray = array.push(item)
+                    return setTodayTransactions(newArray)
+                }
+                return <></>
+            })
+        }
+    }
+    
+    useEffect(() => {
+        filterDayTrades()
+        setTodayTransactionsCount(todayTransactions.length)
+    }, [robot.movimentations])
+
+```
+* O trecho acima é responsável por verificar a quantidade de movimentações feitas no dia atual.
+* Na primeira parte, recebe a data atual e a separa em dia. mês e ano. Entaõ, retorna a data no formato utilizado nos dados dos robôs (ano-mês-dia).
+* Obs: A função padStart(2, '0') é responsável por verificar se o dia e o mês possuem dois dígitos e, caso não possuam, adiciona o dígito zero à frente.
+* A função filterDayTrades() recebe os dados de robots e filtra as movimentações(robot.movimentations) pela data, retornando somente as datas que equivalem ao dia atual.
+* Por fim, no useEffect, a função filterDayTrades() é executada e o valor de transações diárias recebe o tamanho do array retornado pela função filter, que equivale à quantidade de transações realizadas no dia atual.
+* O array de dependências dessa função faz com que ela seja executada novamente sempre que novas movimentações ocorrerem.
+
+```javascript
+const handleClickBalanceView = () => {
+        setShowBalance(!showBalance)
+    }
+```
+* A função acima é responsável por exibir o valor resultante do dia somente se houver o clique no botão, tornando showBalance = true. 
+
+```javascript
+    const startRobot = () => {
+         api.put(`/robot/${robot.id}/start`)
+     }
+
+     const stopRobot = () => {
+         api.put(`/robot/${robot.id}/stop`)
+     }
+```
+* Funções responsáveis por ativar ou desativar o robô. Estão comentadas no código, pois o endpoint está bloqueado por CORS.
