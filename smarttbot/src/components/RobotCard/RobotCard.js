@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from './style'
 import shape from '../../images/shape.svg'
 import { Skeleton } from '@mui/material'
-import api from '../../services/api'
+// import api from '../../services/api'
 
 const RobotCard = (props) => {
     const robot = props.robot
@@ -31,7 +31,7 @@ const RobotCard = (props) => {
         } else {
             setSimulation("Otimista")
         }
-    }, [props])
+    }, [robot])
 
 
     const filterDayTrades = () => {
@@ -41,7 +41,8 @@ const RobotCard = (props) => {
                     let array = todayTransactions
                     let newArray = array.push(item)
                     return setTodayTransactions(newArray)
-                };
+                }
+                return <></>
             })
         }
     }
@@ -49,7 +50,7 @@ const RobotCard = (props) => {
     useEffect(() => {
         filterDayTrades()
         setTodayTransactionsCount(todayTransactions.length)
-    }, [robot])
+    }, [robot.movimentations])
 
     const handleClickBalanceView = () => {
         setShowBalance(!showBalance)
@@ -63,13 +64,15 @@ const RobotCard = (props) => {
     //     api.put(`/robot/${robot.id}/stop`)
     // }
 
+    // Commented because the function is blocked by CORS.
+
     return (
         <Container>
 
             <div id='status'>
                 {status ?
                     <>
-                        <div className='action-box' /*onClick={stopRobot}*/><p>Pausar</p></div>
+                        {/* <div className='action-box' onClick={stopRobot}><p>Pausar</p></div> */}
                         <div className='status-box'>
                             <div id='running-icon'></div>
                             <p>Em execução</p>
@@ -77,7 +80,7 @@ const RobotCard = (props) => {
                     </> :
 
                     <>
-                        <div className='action-box' /*onClick={startRobot}*/><p>Executar</p></div>
+                        {/* <div className='action-box' onClick={startRobot}><p>Executar</p></div> */}
                         <div className='status-box'>
                             <div id='paused-icon'></div>
                             <p>Pausado</p>
