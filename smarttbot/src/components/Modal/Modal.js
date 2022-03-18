@@ -4,32 +4,60 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setShow } from '../../redux/reducers/modalReducer'
 import { setAvailable } from '../../redux/reducers/availableRobots'
 import x from '../../images/x.svg'
+import api from '../../services/api'
 
 const Modal = () => {
     const dispatch = useDispatch()
     const availableRobots = useSelector((state) => state.availableRobots.available)
 
+    const [raptor, setRaptor] = useState(false)
     const [tangram, setTangram] = useState(false)
-    const [priceAction, setPriceAction] = useState(false)
+    const [body, setBody] = useState({
+        title: '',
+        mode: 0,
+        strategy_id: '',
+        initial_capital: '',
+        simulation: 0,
+        broker_id: 0
+    })
 
+    const handleChangeBody = (event) => {
+        setBody({ ...body, [event.target.name]: event.target.value })
+    }
+
+    const selectRaptor = () => {
+        setRaptor(true)
+        setTangram(false)
+        setBody({ ...body, strategy_id: 1 })
+    }
+
+    const selectTangram = () => {
+        setTangram(true)
+        setRaptor(false)
+        setBody({ ...body, strategy_id: 2 })
+    }
 
     const closeModal = () => {
         dispatch(setShow(false))
     }
 
     const submitForm = () => {
-        dispatch(setAvailable(availableRobots - 1))
-        closeModal()
-    }
+        if (body.title === '' || body.initial_capital === '' || body.strategy_id === '') {
+            alert('Preencha todas as informações necessárias.')
+        } else if (body.initial_capital < 0) {
+            alert('Digite um capital inicial do robô válido.')
+        } else {
+            api.post('/robot', body)
+                .then((res) => {
+                    alert('Robô adicionado com sucesso!')
+                    dispatch(setAvailable(availableRobots - 1))
+                    closeModal()
+                })
+                .catch((err) => {
+                    alert('Oops! Ocorreu algum erro.')
+                })
+        }
 
-    const selectTangram = () => {
-        setTangram(true)
-        setPriceAction(false)
-    }
-
-    const selectPriceAction = () => {
-        setPriceAction(true)
-        setTangram(false)
     }
 
     return (
@@ -49,12 +77,15 @@ const Modal = () => {
 
                 <div className='form'>
                     <p>Nome do produto</p>
-                    <input placeholder='Nome do produto' />
+                    <input placeholder='Nome do produto' name='title' value={body.title} onChange={handleChangeBody} />
                 </div>
 
                 <div className='form'>
                     <p>Capital inicial do robô</p>
-                    <input placeholder='R$' type='number' />
+                    <div id='input-box'>
+                        <input type='number' name='initial_capital' value={body.initial_capital} onChange={handleChangeBody} />
+                        <span id='unit'>R$</span>
+                    </div>
                 </div>
 
                 <p id='strategy-text'>Selecione uma das estratégias abaixo</p>
@@ -71,13 +102,13 @@ const Modal = () => {
                 }
 
                 {
-                    priceAction ?
+                    raptor ?
                         <div className='strategy-selected'>
-                            <p>Price Action</p>
+                            <p>Raptor</p>
                         </div> :
 
-                        <div className='strategy-not-selected' onClick={selectPriceAction}>
-                            <p>Price Action</p>
+                        <div className='strategy-not-selected' onClick={selectRaptor}>
+                            <p>Raptor</p>
                         </div>
                 }
 

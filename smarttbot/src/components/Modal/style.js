@@ -93,13 +93,41 @@ export const Container = styled.div`
                 border-radius: 2px;
                 padding: 14px;
                 margin: 0 0 16px 0;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 20px;
+                color: #888689;    
 
                 ::placeholder{
-                    color: #888689;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 20px;
+                    color: #888689;       
                 }
 
                 @media(max-width: 940px){
                 margin: 0 0 12px 0;
+                }
+            }
+
+            #input-box{
+                position: relative;
+                input{
+                    display: block;
+                    padding: 0 0 0 28px;
+                }
+                #unit{
+                    position: absolute;
+                    top: 14px;
+                    left: 14px;
+                    display: flex;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 20px;
+                    color: #888689;                    
                 }
             }
         }
