@@ -50,7 +50,8 @@ summary.papers.map((item, index) => {
 
 ### Adicionar novo robô
 
-```const availableRobots = useSelector((state) => state.availableRobots.available)
+```
+    const availableRobots = useSelector((state) => state.availableRobots.available)
 
     const openModal = () => {
         if (availableRobots <= 0) {
