@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from './style'
 import shape from '../../images/shape.svg'
 import { Skeleton } from '@mui/material'
+import api from '../../services/api'
 
 const RobotCard = (props) => {
     const robot = props.robot
@@ -11,7 +12,6 @@ const RobotCard = (props) => {
     const [todayTransactions, setTodayTransactions] = useState([])
     const [todayTransactionsCount, setTodayTransactionsCount] = useState(0)
     const [showBalance, setShowBalance] = useState(false)
-
 
     const date = new Date();
     const day = String(date.getDate()).padStart(2, '0');
@@ -33,16 +33,21 @@ const RobotCard = (props) => {
         }
     }, [props])
 
-    useEffect(() => {
+
+    const filterDayTrades = () => {
         if (robot) {
             robot.movimentations.filter((item) => {
                 if (item.date.includes(currentDate)) {
                     let array = todayTransactions
                     let newArray = array.push(item)
-                    setTodayTransactions(newArray)
+                    return setTodayTransactions(newArray)
                 };
             })
         }
+    }
+
+    useEffect(() => {
+        filterDayTrades()
         setTodayTransactionsCount(todayTransactions.length)
     }, [robot])
 
@@ -50,17 +55,34 @@ const RobotCard = (props) => {
         setShowBalance(!showBalance)
     }
 
+    // const startRobot = () => {
+    //     api.put(`/robot/${robot.id}/start`)
+    // }
+
+    // const stopRobot = () => {
+    //     api.put(`/robot/${robot.id}/stop`)
+    // }
+
     return (
         <Container>
 
             <div id='status'>
                 {status ?
                     <>
-                        <div id='running-icon'></div>  <p>Em execução</p>
+                        <div className='action-box' /*onClick={stopRobot}*/><p>Pausar</p></div>
+                        <div className='status-box'>
+                            <div id='running-icon'></div>
+                            <p>Em execução</p>
+                        </div>
                     </> :
 
                     <>
-                        <div id='paused-icon'></div> <p>Pausado</p>
+                        <div className='action-box' /*onClick={startRobot}*/><p>Executar</p></div>
+                        <div className='status-box'>
+                            <div id='paused-icon'></div>
+                            <p>Pausado</p>
+                        </div>
+
                     </>
                 }
             </div>

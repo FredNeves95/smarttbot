@@ -26,7 +26,22 @@ export const Container = styled.div`
         align-self: start;
         display: flex;
         align-items: center;
-        justify-content: end;
+        justify-content: space-between;
+
+        .action-box{
+            margin: 0 4.29px 0 0; 
+            padding: 2px 8px 2px 6px;
+            background: #FFFFFF;
+            border: 1px solid #E3E2E3;
+            box-sizing: border-box;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .status-box{
+            display: flex;
+            align-items: center;
+        }
 
         #running-icon{
             width: 10px;
@@ -186,7 +201,8 @@ export const Container = styled.div`
 
                 img{
                     margin: 0 0 0 5px;
-                    transform: scaleY(-1)
+                    transform: scaleY(-1);
+                    cursor: pointer;
                 }
             }
 
@@ -201,6 +217,7 @@ export const Container = styled.div`
 
                 img{
                     margin: 0 0 0 5px;
+                    cursor: pointer;
                 }
             }
 
