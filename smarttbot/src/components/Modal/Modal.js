@@ -61,14 +61,14 @@ const Modal = () => {
     }
 
     return (
-        <Container>
+        <Container data-testid='openedModal'>
             <div id='background'></div>
 
             <div id='form-box'>
 
                 <div id='header'>
                     <p>Adicionar novo Robô</p>
-                    <img src={x} alt='Fechar modal' onClick={closeModal} />
+                    <img src={x} alt='Fechar modal' onClick={closeModal} data-testid='closeModal' />
                 </div>
 
                 <p id='title'>Vamos criar seu robô</p>
@@ -83,7 +83,7 @@ const Modal = () => {
                 <div className='form'>
                     <p>Capital inicial do robô</p>
                     <div id='input-box'>
-                        <input type='number' name='initial_capital' value={body.initial_capital} onChange={handleChangeBody} />
+                        <input type='number' name='initial_capital' value={body.initial_capital} onChange={handleChangeBody} data-testid='initialCapital' />
                         <span id='unit'>R$</span>
                     </div>
                 </div>

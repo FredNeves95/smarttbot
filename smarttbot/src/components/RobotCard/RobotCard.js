@@ -148,17 +148,17 @@ const RobotCard = (props) => {
             </div>
 
             <div id='daily-data'>
-                <div id='daily-value-container'>
+                <div id='daily-value-container' data-testid='dailyBalanceContainer'>
                     {
                         showBalance ?
                             <div id='title-hide'>
                                 <p>Saldo Diário</p>
-                                <img src={shape} alt='Clique para visualizar saldo' onClick={handleClickBalanceView} />
+                                <img src={shape} alt='Clique para visualizar saldo' onClick={handleClickBalanceView} data-testid='showBalance' />
                             </div>
                             :
                             <div id='title-show'>
                                 <p>Saldo Diário</p>
-                                <img src={shape} alt='Clique para visualizar saldo' onClick={handleClickBalanceView} />
+                                <img src={shape} alt='Clique para visualizar saldo' onClick={handleClickBalanceView} data-testid='hideBalance' />
                             </div>
                     }
 
