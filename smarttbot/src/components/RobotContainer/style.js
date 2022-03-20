@@ -5,15 +5,16 @@ export const Container = styled.div`
     flex-wrap: wrap;
     align-items: center; 
     justify-content: space-between;
-    gap: 16px 25px;
+    gap: 16px 40px;
     width: 100%;
     margin: 0 0 24px 0;
 
     @media(min-width: 1800px){
-        justify-content: start;
+        justify-content: space-between;
+        gap: 16px 56px;
     }
 
-    @media(max-width: 1448px) and (min-width: 1100px){
+    @media(max-width: 1490px) and (min-width: 1100px){
         justify-content: start;
     }
 
