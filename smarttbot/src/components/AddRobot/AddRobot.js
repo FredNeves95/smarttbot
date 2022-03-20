@@ -18,13 +18,13 @@ const AddRobot = () => {
 
     return (
         <Container>
-            <div id='box-border' onClick={openModal}>
+            <div id='box-border' onClick={openModal} data-testid='openModal'>
                 <img src={addIcon} alt='Botão de adicionar' />
             </div>
             <div>
                 <p id='title'>Adicionar novo Robô</p>
                 <p id='subtitle'>Você possui
-                    <span>{availableRobots > 1 ?
+                    <span data-testid='availableRobots'>{availableRobots > 1 ?
                         ` 0${availableRobots} Robôs` :
                         ` 0${availableRobots} Robô`
                     } </span>
